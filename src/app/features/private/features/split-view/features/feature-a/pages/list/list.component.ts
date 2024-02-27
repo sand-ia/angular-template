@@ -3,11 +3,11 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'app-feature-a',
-  templateUrl: './feature-a.component.html',
-  styleUrls: ['./feature-a.component.scss'],
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class FeatureAComponent implements OnInit {
+export class ListComponent implements OnInit {
   isInspectorVisible: boolean = false;
   constructor(private router: Router, private route: ActivatedRoute) {}
 
