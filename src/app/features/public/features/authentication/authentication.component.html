@@ -1,0 +1,863 @@
+<main>
+  <section class="banner primary light-text">
+    <section class="logo">
+      <img [src]="'assets/img/logo.png'" alt="this is the logo" />
+    </section>
+  </section>
+
+  <section class="header">
+    <mat-toolbar color="primary">
+      <img
+        class="logoHeader"
+        [src]="'assets/img/logo.png'"
+        alt="this is the logo" />
+      <span>Ventanilla Única del Constructor</span>
+    </mat-toolbar>
+  </section>
+
+  <section class="card">
+    <mat-card
+      *ngIf="selectedFormType === FormType.ForgotPassword"
+      class="login-card">
+      <mat-progress-bar
+        *ngIf="isLoading"
+        mode="indeterminate"></mat-progress-bar>
+      <mat-card-title class="title-error-403">
+        Recuperación de contraseña
+      </mat-card-title>
+      <mat-card-content class="content-error-403">
+        Ingresa tu dirección de correo electrónico asociada a tu cuenta y te
+        enviaremos instrucciones para restablecer tu contraseña.
+      </mat-card-content>
+      <mat-card-content class="content-error-403">
+        Por favor, asegúrate de verificar la carpeta de correo no deseado si no
+        recibes el correo de recuperación en unos minutos.
+      </mat-card-content>
+      <form [formGroup]="updatedPasswordForm" (ngSubmit)="recoverPassword()">
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Correo Electrónico asociado</mat-label>
+            <input
+              matInput
+              placeholder="Corre electrónico asociado"
+              formControlName="email" />
+          </mat-form-field>
+        </mat-card-content>
+        <mat-error class="email-404-error" *ngIf="isEmailWrong">
+          correo no registrado, intente con otro correo
+        </mat-error>
+
+        <mat-card-actions>
+          <button
+            mat-flat-button
+            type="submit"
+            color="accent"
+            class="secondary-btn">
+            Enviar correo electrónico
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+
+    <mat-card
+      *ngIf="selectedFormType === FormType.EmailValidation"
+      class="login-card">
+      <mat-progress-bar
+        *ngIf="isLoading"
+        mode="indeterminate"></mat-progress-bar>
+      <mat-card-title class="title-error-403">
+        Cuenta No Verificada
+      </mat-card-title>
+      <mat-card-content class="content-error-403">
+        Por favor, verifica tu correo electrónico para completar el proceso de
+        registro.
+      </mat-card-content>
+      <mat-card-content class="content-error-403">
+        Te hemos enviado un enlace de verificación. Si no encuentras el correo
+        electrónico en tu bandeja de entrada, revisa la carpeta de correo no
+        deseado o solicita nuevamente el correo de verificación.
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          type="button"
+          color="accent"
+          class="secondary-btn"
+          (click)="sendValidationEmail()">
+          Enviar Correo Nuevamente
+        </button>
+      </mat-card-actions>
+
+      <mat-card-content
+        [class.hidden]="isMessageHidden"
+        class="content-error-403">
+        El correo ha sido enviado
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card
+      *ngIf="selectedFormType === FormType.ResetPassword"
+      class="login-card">
+      <mat-progress-bar
+        *ngIf="isLoading"
+        mode="indeterminate"></mat-progress-bar>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="updatedPassword()">
+        <mat-card-content>
+          <mat-card-title class="reset-title-card"
+            >Restaurar Contraseña</mat-card-title
+          >
+          <mat-form-field appearance="outline">
+            <mat-label>Nueva Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Nueva Contraseña"
+              formControlName="password" />
+            <mat-error
+              class="custom-error"
+              *ngIf="resetPasswordForm.get('password')?.hasError('required')">
+              Contraseña requerida
+            </mat-error>
+            <mat-error
+              class="custom-error"
+              *ngIf="
+                resetPasswordForm.get('password')?.hasError('minlength') &&
+                !resetPasswordForm.get('password')?.hasError('required')
+              ">
+              Debe tener 6 o mas caracteres
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirmar Nueva Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Confirmar Nueva Contraseña"
+              formControlName="confirmPassword" />
+            <mat-error
+              class="custom-error"
+              *ngIf="
+                resetPasswordForm.get('confirmPassword')?.hasError('required')
+              ">
+              Confirmar Contraseña requerida
+            </mat-error>
+            <mat-error
+              class="custom-error"
+              *ngIf="
+                resetPasswordForm
+                  .get('confirmPassword')
+                  ?.hasError('mismatch') &&
+                !resetPasswordForm.get('confirmPassword')?.hasError('required')
+              ">
+              Las contraseñas no coinciden
+            </mat-error>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions class="reset-password-button">
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            class="primary-btn">
+            Actualizar Contraseña
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+
+    <mat-card *ngIf="selectedFormType === FormType.Login" class="login-card">
+      <mat-progress-bar
+        *ngIf="isLoading"
+        mode="indeterminate"></mat-progress-bar>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-card-content>
+          <section class="logo-vuc">
+            <img [src]="'assets/img/logo-vuc.png'" alt="this is the logo vuc" />
+          </section>
+          <mat-form-field appearance="outline">
+            <mat-label>Correo Electrónico</mat-label>
+            <input
+              matInput
+              placeholder="Correo Electrónico"
+              formControlName="email" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="Contraseña"
+              formControlName="password" />
+          </mat-form-field>
+          <mat-error class="credential-error" *ngIf="loginError">
+            {{ loginError }}
+          </mat-error>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            class="primary-btn">
+            Iniciar Sesión
+          </button>
+          <a
+            class="info-btn primary-text"
+            href="javascript:void(0)"
+            (click)="changePassword()"
+            >Olvide mi contraseña</a
+          >
+        </mat-card-actions>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+          <button
+            mat-flat-button
+            type="button"
+            color="accent"
+            class="secondary-btn"
+            (click)="selectFormType(FormType.UserType)">
+            Crear Nueva Cuenta
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+
+    <mat-card
+      *ngIf="selectedFormType === FormType.UserType"
+      class="user-type-card">
+      <mat-card-content>
+        <mat-button-toggle-group
+          name="fontStyle"
+          aria-label="Font Style"
+          #toggleBtn="matButtonToggleGroup"
+          (change)="onChangeUserType(toggleBtn.value)">
+          <mat-button-toggle
+            [ngClass]="{
+              'light primary-text': toggleBtn.value !== UserType.Natural,
+              'primary light-text': toggleBtn.value === UserType.Natural,
+            }"
+            [value]="UserType.Natural">
+            <mat-icon>person</mat-icon>
+            <span>Pesona Natural</span>
+          </mat-button-toggle>
+          <mat-button-toggle
+            [ngClass]="{
+              'light primary-text': toggleBtn.value !== UserType.Juridica,
+              'primary light-text': toggleBtn.value === UserType.Juridica
+            }"
+            [value]="UserType.Juridica">
+            <mat-icon>apartment</mat-icon>
+            <span>Persona Juridica</span>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          class="primary-btn"
+          [disabled]="!toggleBtn.value"
+          (click)="selectFormType(FormType.Register)">
+          Continuar
+        </button>
+      </mat-card-actions>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="accent"
+          class="secondary-btn"
+          type="button"
+          (click)="selectFormType(FormType.Login)">
+          Iniciar Sesión
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card
+      *ngIf="selectedFormType === FormType.Register"
+      class="register-card">
+      <mat-progress-bar
+        *ngIf="isLoading"
+        mode="indeterminate"></mat-progress-bar>
+      <mat-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="registerGeneralForm">
+          <form [formGroup]="registerGeneralForm">
+            <ng-template matStepLabel>General </ng-template>
+            <mat-card-content>
+              <ng-container
+                *ngIf="userType === UserType.Juridica; else elseBlock">
+                <mat-form-field appearance="outline">
+                  <mat-label>NIT</mat-label>
+                  <input
+                    matInput
+                    placeholder="NIT"
+                    formControlName="documentNumber" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('required')
+                    ">
+                    Nit requerido
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('required')
+                    ">
+                    Nit debe tener minimo 10 digitos
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('number') &&
+                      !registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('required')
+                    ">
+                    Ingresa solo números en este campo
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Razon Social</mat-label>
+                  <input
+                    matInput
+                    placeholder="Razon Social"
+                    formControlName="companyName" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('companyName')
+                        ?.hasError('required')
+                    ">
+                    Razon social requerida
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('companyName')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm
+                        .get('companyName')
+                        ?.hasError('required')
+                    ">
+                    El campo debe tener un tamaño minimo de 3 caracteres
+                  </mat-error>
+                </mat-form-field>
+              </ng-container>
+              <ng-template #elseBlock>
+                <mat-form-field appearance="outline">
+                  <mat-label>Tipo de Documento</mat-label>
+                  <mat-select formControlName="documentType">
+                    <mat-option value="CC"> Cédula de Ciudadania</mat-option>
+                    <mat-option value="CE">Cédula de Extrajeria</mat-option>
+                  </mat-select>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentType')
+                        ?.hasError('required')
+                    ">
+                    Tipo de documento requerido
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Numero de Documento</mat-label>
+                  <input
+                    matInput
+                    placeholder="Numero de Documento"
+                    formControlName="documentNumber" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('required')
+                    ">
+                    Numero de documento requerido
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('required')
+                    ">
+                    Documento debe tener 4 digitos
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('number') &&
+                      !registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm
+                        .get('documentNumber')
+                        ?.hasError('required')
+                    ">
+                    Ingresa solo números en este campo
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Primer Nombre</mat-label>
+                  <input
+                    matInput
+                    placeholder="Primer Nombre"
+                    formControlName="firstName" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm.get('firstName')?.hasError('required')
+                    ">
+                    Primer nombre requerido
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('firstName')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm
+                        .get('firstName')
+                        ?.hasError('required')
+                    ">
+                    El campo debe tener un tamaño minimo de 3 caracteres
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('firstName')
+                        ?.hasError('maxlength')
+                    ">
+                    El campo debe tener un tamaño maximo de 25 caracteres
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Segundo Nombre</mat-label>
+                  <input
+                    matInput
+                    placeholder="Segundo Nombre"
+                    formControlName="middleName" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('middleName')
+                        ?.hasError('minlength')
+                    ">
+                    El campo debe tener un tamaño minimo de 3 caracteres
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('middleName')
+                        ?.hasError('maxlength')
+                    ">
+                    El campo debe tener un tamaño maximo de 25 caracteres
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Primer Apellido</mat-label>
+                  <input
+                    matInput
+                    placeholder="Primer Apellido"
+                    formControlName="lastName" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm.get('lastName')?.hasError('required')
+                    ">
+                    Primer Apellido requerido
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('lastName')
+                        ?.hasError('minlength') &&
+                      !registerGeneralForm.get('lastName')?.hasError('required')
+                    ">
+                    El campo debe tener un tamaño minimo de 3 caracteres
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm.get('lastName')?.hasError('maxlength')
+                    ">
+                    El campo debe tener un tamaño maximo de 25 caracteres
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Segundo Apellido</mat-label>
+                  <input
+                    matInput
+                    placeholder="Segundo Apellido"
+                    formControlName="secondLastName" />
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('secondLastName')
+                        ?.hasError('minlength')
+                    ">
+                    El campo debe tener un tamaño minimo de 3 caracteres
+                  </mat-error>
+                  <mat-error
+                    class="custom-error"
+                    *ngIf="
+                      registerGeneralForm
+                        .get('secondLastName')
+                        ?.hasError('maxlength')
+                    ">
+                    El campo debe tener un tamaño maximo de 25 caracteres
+                  </mat-error>
+                </mat-form-field>
+              </ng-template>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                (click)="stepper.next()"
+                type="button"
+                mat-flat-button
+                color="primary"
+                class="primary-btn">
+                Continuar
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registerResidentialForm">
+          <form [formGroup]="registerResidentialForm">
+            <ng-template matStepLabel>Residencia</ng-template>
+            <mat-card-content>
+              <mat-form-field appearance="outline">
+                <mat-label>País de Residencia</mat-label>
+                <mat-select
+                  formControlName="country"
+                  (selectionChange)="getStates($event)">
+                  <mat-option
+                    *ngFor="let country of countries"
+                    [value]="country.idCountry">
+                    {{ country.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm.get('country')?.hasError('required')
+                  ">
+                  País requerido
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Departamento de Residencia</mat-label>
+                <mat-select
+                  formControlName="state"
+                  (selectionChange)="getCities($event)">
+                  <mat-option
+                    *ngFor="let state of states"
+                    [value]="state.idState">
+                    {{ state.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm.get('state')?.hasError('required')
+                  ">
+                  Departamento requerido
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Ciudad de Residencia</mat-label>
+                <mat-select formControlName="city">
+                  <mat-option *ngFor="let city of cities" [value]="city.idCity">
+                    {{ city.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm.get('city')?.hasError('required')
+                  ">
+                  Ciudad requerida
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Dirección de Residencia</mat-label>
+                <input
+                  matInput
+                  placeholder="Dirección de Residencia"
+                  formControlName="address" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm.get('address')?.hasError('required')
+                  ">
+                  Dirección requerida
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm
+                      .get('address')
+                      ?.hasError('minlength') &&
+                    !registerResidentialForm
+                      .get('address')
+                      ?.hasError('required')
+                  ">
+                  El campo debe tener un tamaño minimo de 10 caracteres
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm
+                      .get('address')
+                      ?.hasError('maxlength')
+                  ">
+                  El campo debe tener un tamaño maximo de 100 caracteres
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input
+                  matInput
+                  placeholder="Teléfono"
+                  formControlName="phone" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm.get('phone')?.hasError('required')
+                  ">
+                  Teléfono requerido
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm
+                      .get('phone')
+                      ?.hasError('minlength') ||
+                    (registerResidentialForm
+                      .get('phone')
+                      ?.hasError('maxlength') &&
+                      !registerResidentialForm
+                        .get('phone')
+                        ?.hasError('required'))
+                  ">
+                  El campo debe tener 10 digitos
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Teléfono Alternativo</mat-label>
+                <input
+                  matInput
+                  placeholder="Teléfono Alternativo"
+                  formControlName="alternativePhone" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerResidentialForm
+                      .get('alternativePhone')
+                      ?.hasError('minlength') ||
+                    registerResidentialForm
+                      .get('alternativePhone')
+                      ?.hasError('maxlength')
+                  ">
+                  El campo debe tener 10 digitos
+                </mat-error>
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                (click)="stepper.next()"
+                type="button"
+                mat-flat-button
+                color="primary"
+                class="primary-btn">
+                Continuar
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registerSecurityForm">
+          <form
+            [formGroup]="registerSecurityForm"
+            (ngSubmit)="onSubmitRegisterForm()">
+            <ng-template matStepLabel>Seguridad</ng-template>
+            <mat-card-content>
+              <mat-form-field appearance="outline">
+                <mat-label>Correo Electronico</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Correo Electronico"
+                  formControlName="email" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm.get('email')?.hasError('required')
+                  ">
+                  Correo Electrónico requerido
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm.get('email')?.hasError('email') &&
+                    !registerSecurityForm.get('email')?.hasError('required')
+                  ">
+                  Correo electrónico invalido
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm
+                      .get('email')
+                      ?.hasError('emailExists') &&
+                    !registerSecurityForm.get('email')?.hasError('email')
+                  ">
+                  Correo ya existe
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Confirmar Correo Electronico</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Confirmar Correo Electronico"
+                  formControlName="confirmEmail" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm
+                      .get('confirmEmail')
+                      ?.hasError('required')
+                  ">
+                  Confirmar Correo Electronico requerido
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm
+                      .get('confirmEmail')
+                      ?.hasError('mismatch') &&
+                    !registerSecurityForm
+                      .get('confirmEmail')
+                      ?.hasError('required')
+                  ">
+                  Los correos electrónicos no coinciden
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  placeholder="Contraseña"
+                  formControlName="password" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm.get('password')?.hasError('required')
+                  ">
+                  Contraseña requerida
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm
+                      .get('password')
+                      ?.hasError('minlength') &&
+                    !registerSecurityForm.get('password')?.hasError('required')
+                  ">
+                  Debe tener 6 o mas caracteres
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  placeholder="Confirmar Contraseña"
+                  formControlName="confirmPassword" />
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm
+                      .get('confirmPassword')
+                      ?.hasError('required')
+                  ">
+                  Confirmar Contraseña requerida
+                </mat-error>
+                <mat-error
+                  class="custom-error"
+                  *ngIf="
+                    registerSecurityForm
+                      .get('confirmPassword')
+                      ?.hasError('mismatch') &&
+                    !registerSecurityForm
+                      .get('confirmPassword')
+                      ?.hasError('required')
+                  ">
+                  Las contraseñas no coinciden
+                </mat-error>
+              </mat-form-field>
+
+              <mat-slide-toggle formControlName="acceptanceTerms">
+                Acepto los términos y condiciones del sitio
+              </mat-slide-toggle>
+              <mat-slide-toggle formControlName="policyTerms">
+                Acepto las poilitcas del sitio
+              </mat-slide-toggle>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                mat-flat-button
+                color="primary"
+                type="submit"
+                class="login"
+                class="primary-btn">
+                Crear Nueva Cuenta
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-step>
+      </mat-stepper>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="accent"
+          class="secondary-btn"
+          type="button"
+          (click)="selectFormType(FormType.Login)">
+          Iniciar Sesión
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+</main>

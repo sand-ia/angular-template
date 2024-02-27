@@ -1,0 +1,23 @@
+.modal{
+  .modal-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .modal-title {
+      font-size: 48px;
+      font-weight: 900;
+    }
+    
+    .modal-subtitle {
+      font-size: 30px;
+      font-weight: 500;
+    } 
+  }
+
+  .modal-footer{
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,165 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$light: white;
+$dark: rgba(black, 0.87);
+
+$primary-color: (
+  50: #b7c7e7,
+  100: #b7c7e7,
+  200: #b7c7e7,
+  300: #3366CC,
+  400: #b7c7e7,
+  500: #b7c7e7,
+  600: #b7c7e7,
+  700: #b7c7e7,
+  800: #b7c7e7,
+  900: #b7c7e7,
+  contrast: (
+    50: $dark,
+    100: $dark,
+    200: $dark,
+    300: $light,
+    400: $light,
+    500: $light,
+    600: $light,
+    700: $light,
+    800: $light,
+    900: $light,
+  )
+);;
+
+$accent-color: (
+  50: #fff8e3,
+  100: #ffebb7,
+  200: #ffdf8a,
+  300: #ffd45d,
+  400: #ffc941,
+  500: #ffc034,
+  600: #ffb230,
+  700: #fda02d,
+  800: #fc902b,
+  900: #f97328,
+  contrast: (
+    50: $dark,
+    100: $dark,
+    200: $dark,
+    300: $dark,
+    400: $dark,
+    500: $dark,
+    600: $dark,
+    700: $light,
+    800: $light,
+    900: $light,
+  )
+);
+
+$warn-color: (
+  50: #fae6ea,
+  100: #f5c0cc,
+  200: #ef99ab,
+  300: #e7748c,
+  400: #e05d75,
+  500: #da4e60,
+  600: #ca485d,
+  700: #b44258,
+  800: #9f3d54,
+  900: #7c324a,
+  contrast: (
+    50: $dark,
+    100: $dark,
+    200: $dark,
+    300: $dark,
+    400: $light,
+    500: $light,
+    600: $light,
+    700: $light,
+    800: $light,
+    900: $light,
+  )
+);
+
+$my-primary: mat.define-palette($primary-color, 300);
+$my-accent: mat.define-palette($accent-color, 600);
+$my-warn: mat.define-palette($warn-color, 400);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+@include mat.all-component-themes($my-theme);
+
+.mat-mdc-button.mat-mdc-button-base, .mat-mdc-raised-button.mat-mdc-button-base, .mat-mdc-unelevated-button.mat-mdc-button-base, .mat-mdc-outlined-button.mat-mdc-button-base {
+  height: 48px;
+}
+
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-primary, '300-contrast')};
+ }
+
+.mat-mdc-unelevated-button.mat-accent {
+  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-accent, '600-contrast')};
+}
+
+.mat-mdc-unelevated-button.mat-warn {
+  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-warn, '400-contrast')};
+}
+
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-label-text-color: #{mat.get-color-from-palette($my-primary, '300-contrast')};
+}
+
+.mat-mdc-raised-button.mat-accent {
+  --mdc-protected-button-label-text-color: #{mat.get-color-from-palette($my-accent, '600-contrast')};
+}
+
+.mat-mdc-raised-button.mat-warn {
+  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-warn, '400-contrast')};
+}
+
+
+.light {
+  background-color: $light;
+}
+
+.light-text {
+  color: $light !important;
+}
+
+.dark {
+  background-color: $dark;
+}
+
+.dark-text {
+  color: $dark;
+}
+
+.primary {
+  background-color: map-get($primary-color, 300);
+}
+
+.primary-text {
+  color: map-get($primary-color, 300);
+}
+
+.accent {
+  background-color: map-get($accent-color, 600);
+}
+
+.accent-text {
+  color: map-get($accent-color, 600);
+}
+
+.warn {
+  background-color: map-get($warn-color, 400);
+}
+
+.warn-text {
+  color: map-get($warn-color, 400);
+}

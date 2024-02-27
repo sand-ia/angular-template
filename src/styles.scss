@@ -1,0 +1,21 @@
+/* Apply default styles to all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+/* Apply default styles to the <html> element */
+html {
+  height: 100%; 
+  font-size: 16px; /* Set a default font size, adjust as needed */
+}
+
+/* Apply default styles to the <body> element */
+body {
+  height: 100%; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; /* Set a default font-family, adjust as needed */
+  line-height: 1.6; /* Set the line height to improve readability */
+  color: #333; /* Set a default text color, adjust as needed */
+  background-color: #ECECEC; /* Set a default background color, adjust as needed */
+}

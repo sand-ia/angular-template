@@ -1,0 +1,305 @@
+main {
+  display: grid;
+  height: 100%;
+
+  .header {
+    height: auto;
+    .logoHeader {
+      height: 70px;
+    }
+  }
+
+  .banner {
+    margin: 20px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+
+    /* Imagen de fondo */
+    background: url('https://palmira.gov.co/wp-content/uploads/2021/12/Imagen1.jpg')
+      left no-repeat;
+    background-size: cover;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    &::before {
+      border-radius: 15px;
+      content: '';
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+
+    .logo {
+      margin-top: 0;
+      z-index: 1;
+      text-align: left;
+
+      img {
+        width: 40%;
+        filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 1));
+      }
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+
+      h1 {
+        font-size: 48px;
+        margin: 0;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-card {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      .custom-error {
+        margin-left: -20px;
+        margin-top: -4px;
+      }
+
+      .credential-error {
+        text-align: justify;
+        font-size: 14px;
+        margin-left: -2px;
+        margin-top: -20px;
+        margin-bottom: 10px;
+      }
+
+      .title-error-403 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
+      .email-404-error {
+        text-align: justify;
+        font-size: 14px;
+        margin-left: 14px;
+        margin-top: -20px;
+        margin-bottom: 10px;
+      }
+
+      .content-error-403 {
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      mat-button-toggle-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+        border: none;
+
+        mat-button-toggle {
+          flex: 1;
+        }
+      }
+
+      mat-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 100px;
+        margin: 20px;
+      }
+
+      span {
+        display: block;
+      }
+
+      // .selected-toggle {
+      //   background-color: #00a780;
+      //   color: white;
+      // }
+
+      mat-card-actions {
+        display: flex;
+        flex-direction: column;
+        padding: 0 16px 16px;
+
+        .primary-btn {
+          width: 100%;
+          font-size: 20px;
+        }
+
+        .secondary-btn {
+          font-size: 17px;
+          margin: 17px 0;
+        }
+
+        .info-btn {
+          font-size: 14px;
+          margin: 17px 0;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .info-btn:hover {
+          text-decoration: underline;
+        }
+      }
+
+      mat-divider {
+        margin: 0 20px;
+      }
+
+      .logo-vuc {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        margin-bottom: 10px;
+
+        img {
+          width: 70%;
+        }
+      }
+    }
+
+    .login-card {
+      width: 400px;
+    }
+
+    .reset-title-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 10px;
+    }
+
+    .reset-password-button {
+      padding-bottom: 20px;
+    }
+
+    .user-type-card {
+      width: 400px;
+    }
+
+    .register-card {
+      width: 80%;
+      margin: 20px;
+    }
+
+    mat-slide-toggle {
+      margin: 16px;
+      display: block;
+    }
+  }
+}
+
+/* Portrait */
+
+@media (orientation: portrait) {
+  main {
+    grid-template-rows: auto 1fr;
+
+    .header {
+      display: block;
+    }
+    .banner {
+      display: none;
+    }
+  }
+}
+
+/* Phone Portrait */
+
+@media (orientation: portrait) and (max-width: 575px) {
+}
+
+@media (orientation: portrait) and (min-width: 576px) {
+}
+
+/* Laptop/Tablet Portrait */
+
+@media (orientation: portrait) and (min-width: 768px) {
+}
+
+@media (orientation: portrait) and (min-width: 992px) {
+}
+
+@media (orientation: portrait) and (min-width: 1200px) {
+}
+
+/* Landscape */
+
+@media (orientation: landscape) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+    .header {
+      display: none;
+    }
+  }
+}
+
+/* Phone Landscape */
+
+@media (orientation: landscape) and (max-height: 419px) {
+}
+
+/* Laptop/Tablet Landscape */
+
+@media (orientation: landscape) and (min-height: 420px) {
+}
+
+@media (orientation: landscape) and (min-height: 420px) and (max-width: 575px) {
+}
+
+@media (orientation: landscape) and (min-height: 420px) and (min-width: 576px) {
+}
+
+@media (orientation: landscape) and (max-height: 419px) and (max-width: 760px) {
+  main {
+    grid-template-columns: None;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+
+    .header {
+      display: block;
+    }
+    .banner {
+      display: none;
+    }
+  }
+}
+
+@media (orientation: landscape) and (min-height: 420px) and (min-width: 768px) {
+}
+
+@media (orientation: landscape) and (min-height: 420px) and (min-width: 992px) {
+}
+
+@media (orientation: landscape) and (min-height: 420px) and (min-width: 1200px) {
+}
