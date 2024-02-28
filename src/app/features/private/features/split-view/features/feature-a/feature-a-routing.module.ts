@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DetailComponent } from './pages/detail/detail.component';
 import { CreateComponent } from './pages/create/create.component';
-import { ListComponent } from './pages/list/list.component';
+import { FeatureAComponent } from './feature-a.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListComponent,
+    component: FeatureAComponent,
     children: [
       {
         path: 'create',
