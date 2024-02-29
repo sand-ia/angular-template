@@ -6,6 +6,7 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { CreateComponent } from './pages/create/create.component';
 import { ListComponent } from './pages/list/list.component';
 import { FeatureAComponent } from './feature-a.component';
+import { SplitViewModule } from '../../split-view.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { FeatureAComponent } from './feature-a.component';
     ListComponent,
     FeatureAComponent,
   ],
-  imports: [CommonModule, FeatureARoutingModule, SharedModule],
+  imports: [CommonModule, FeatureARoutingModule, SharedModule, SplitViewModule],
 })
 export class FeatureAModule {}
