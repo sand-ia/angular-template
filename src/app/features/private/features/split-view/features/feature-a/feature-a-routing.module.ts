@@ -6,6 +6,13 @@ import { FeatureAComponent } from './feature-a.component';
 
 const routes: Routes = [
   {
+    path: 'feature-c',
+    loadChildren: () =>
+      import('./features/feature-c/feature-c.module').then(
+        m => m.FeatureCModule
+      ),
+  },
+  {
     path: '',
     component: FeatureAComponent,
     children: [
