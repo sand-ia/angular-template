@@ -18,6 +18,10 @@ export class InspectorComponent implements OnInit {
       .subscribe(() => this.setInspectorVisibility());
   }
 
+  async close(): Promise<void> {
+    await this.router.navigate(['..'], { relativeTo: this.route.firstChild });
+  }
+
   private setInspectorVisibility(): void {
     this.isInspectorVisible = !!this.route.firstChild;
   }

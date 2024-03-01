@@ -1,5 +1,5 @@
 <section class="inspector" [ngClass]="{ hidden: !isInspectorVisible }">
-  <app-button *ngIf="isInspectorVisible" routerLink=".." type="button"
+  <app-button *ngIf="isInspectorVisible" (click)="close()" type="button"
     >Close</app-button
   >
   <ng-content></ng-content>
