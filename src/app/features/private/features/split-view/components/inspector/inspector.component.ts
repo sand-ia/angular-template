@@ -9,6 +9,8 @@ import { filter } from 'rxjs';
 })
 export class InspectorComponent implements OnInit {
   isInspectorVisible: boolean = false;
+  isInspectorContentVisible: boolean = false;
+
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -23,6 +25,13 @@ export class InspectorComponent implements OnInit {
   }
 
   private setInspectorVisibility(): void {
+    console.log(!!this.route.firstChild);
     this.isInspectorVisible = !!this.route.firstChild;
+
+    if (this.isInspectorVisible) {
+      setTimeout(() => (this.isInspectorContentVisible = true), 200);
+    } else {
+      this.isInspectorContentVisible = false;
+    }
   }
 }

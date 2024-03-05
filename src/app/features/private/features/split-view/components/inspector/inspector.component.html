@@ -1,6 +1,6 @@
 <section class="inspector" [ngClass]="{ hidden: !isInspectorVisible }">
-  <app-button *ngIf="isInspectorVisible" (click)="close()" type="button"
-    >Close</app-button
-  >
-  <ng-content></ng-content>
+  <app-button *ngIf="isInspectorContentVisible" (click)="close()" type="button">
+    Close
+  </app-button>
+  <ng-content *ngIf="isInspectorContentVisible"></ng-content>
 </section>
