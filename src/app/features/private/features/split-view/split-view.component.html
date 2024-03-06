@@ -9,7 +9,7 @@
     routerLinkActive="active">
     Feature C
   </app-button>
-  <app-button routerLink="feature-b" routerLinkActive="active">
+  <app-button (click)="navigateTo('feature-b')" routerLinkActive="active">
     Feature B
   </app-button>
 </app-sidebar>
