@@ -24,7 +24,7 @@ export class InspectorComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.setInspectorVisibility());
     this.splitViewService.activeCanvas$.subscribe(() => {
-      if (!!this.route.firstChild) this.close();
+      if (!!this.isInspectorVisible) this.close();
     });
   }
 

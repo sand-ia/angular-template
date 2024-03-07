@@ -9,7 +9,7 @@ export class SplitViewService {
   private activeCanvasSubject: BehaviorSubject<string>;
 
   constructor() {
-    this.activeCanvasSubject = new BehaviorSubject<string>('');
+    this.activeCanvasSubject = new BehaviorSubject<string>('feature-a');
     this.activeCanvas$ = this.activeCanvasSubject.asObservable();
   }
 
@@ -18,6 +18,6 @@ export class SplitViewService {
   }
 
   setActiveCanvas(route: string): void {
-    this.activeCanvasSubject.next(route);
+    if (route != this.getActiveCanvas()) this.activeCanvasSubject.next(route);
   }
 }
