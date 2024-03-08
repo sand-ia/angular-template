@@ -1,21 +1,21 @@
 <app-sidebar class="sidebar-btn">
   My App
   <app-button
+    (click)="splitViewService.setActiveCanvas('feature-a')"
     [link]="'feature-a'"
-    (click)="setActiveCanvas('feature-a')"
     [delay]="200">
     Feature A
   </app-button>
   <app-button
     class="sub-button"
+    (click)="splitViewService.setActiveCanvas('feature-a/feature-c')"
     [link]="'feature-a/feature-c'"
-    (click)="setActiveCanvas('feature-a/feature-c')"
     [delay]="200">
     Feature C
   </app-button>
   <app-button
+    (click)="splitViewService.setActiveCanvas('feature-b')"
     [link]="'feature-b'"
-    (click)="setActiveCanvas('feature-b')"
     [delay]="200">
     Feature B
   </app-button>
