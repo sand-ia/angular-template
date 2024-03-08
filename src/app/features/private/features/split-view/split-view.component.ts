@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SplitViewService } from './split-view.service';
 
 @Component({
@@ -8,17 +7,9 @@ import { SplitViewService } from './split-view.service';
   styleUrls: ['./split-view.component.scss'],
 })
 export class SplitViewComponent {
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private splitViewService: SplitViewService
-  ) {}
+  constructor(private splitViewService: SplitViewService) {}
 
-  navigateTo(route: string): void {
+  setActiveCanvas(route: string): void {
     this.splitViewService.setActiveCanvas(route);
-    setTimeout(
-      () => void this.router.navigate([route], { relativeTo: this.route }),
-      200
-    );
   }
 }

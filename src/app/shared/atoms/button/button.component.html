@@ -1,3 +1,6 @@
-<button [type]="type">
+<button
+  type="{{ type }}"
+  [ngClass]="{ active: isButtonActive }"
+  (click)="onClick()">
   <ng-content></ng-content>
 </button>

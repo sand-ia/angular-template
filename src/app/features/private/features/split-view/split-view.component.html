@@ -1,15 +1,22 @@
 <app-sidebar class="sidebar-btn">
   My App
-  <app-button (click)="navigateTo('feature-a')" routerLinkActive="active">
+  <app-button
+    [link]="'feature-a'"
+    (click)="setActiveCanvas('feature-a')"
+    [delay]="200">
     Feature A
   </app-button>
   <app-button
     class="sub-button"
-    (click)="navigateTo('feature-a/feature-c')"
-    routerLinkActive="active">
+    [link]="'feature-a/feature-c'"
+    (click)="setActiveCanvas('feature-a/feature-c')"
+    [delay]="200">
     Feature C
   </app-button>
-  <app-button (click)="navigateTo('feature-b')" routerLinkActive="active">
+  <app-button
+    [link]="'feature-b'"
+    (click)="setActiveCanvas('feature-b')"
+    [delay]="200">
     Feature B
   </app-button>
 </app-sidebar>
