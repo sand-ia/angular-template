@@ -3,20 +3,20 @@
   <app-button
     (click)="splitViewService.setActiveCanvas('feature-a')"
     [link]="'feature-a'"
-    [delay]="200">
+    [delay]="splitViewService.TRANSITION_TIME_MS">
     Feature A
   </app-button>
   <app-button
     class="sub-button"
     (click)="splitViewService.setActiveCanvas('feature-a/feature-c')"
     [link]="'feature-a/feature-c'"
-    [delay]="200">
+    [delay]="splitViewService.TRANSITION_TIME_MS">
     Feature C
   </app-button>
   <app-button
     (click)="splitViewService.setActiveCanvas('feature-b')"
     [link]="'feature-b'"
-    [delay]="200">
+    [delay]="splitViewService.TRANSITION_TIME_MS">
     Feature B
   </app-button>
 </app-sidebar>

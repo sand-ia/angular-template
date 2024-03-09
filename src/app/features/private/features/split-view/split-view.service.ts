@@ -5,7 +5,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SplitViewService {
-  public activeCanvas$: Observable<string>;
+  readonly TRANSITION_TIME_MS: number = 200;
+  activeCanvas$: Observable<string>;
   private activeCanvasSubject: BehaviorSubject<string>;
 
   constructor() {
