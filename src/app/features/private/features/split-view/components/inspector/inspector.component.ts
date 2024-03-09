@@ -13,9 +13,9 @@ export class InspectorComponent implements OnInit {
   isInspectorContentVisible: boolean = false;
 
   constructor(
+    public splitViewService: SplitViewService,
     private router: Router,
-    private route: ActivatedRoute,
-    private splitViewService: SplitViewService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +35,10 @@ export class InspectorComponent implements OnInit {
   private setInspectorVisibility(): void {
     this.isInspectorVisible = !!this.route.firstChild;
     if (this.isInspectorVisible) {
-      setTimeout(() => (this.isInspectorContentVisible = true), 200);
+      setTimeout(
+        () => (this.isInspectorContentVisible = true),
+        this.splitViewService.TRANSITION_TIME_MS
+      );
     } else {
       this.isInspectorContentVisible = false;
     }

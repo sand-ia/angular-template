@@ -1,3 +1,8 @@
-<section class="canvas" [ngClass]="{ hidden: !isCanvasVisible }">
-  <ng-content></ng-content>
+<section class="canvas">
+  <div
+    class="canvas-content"
+    [style.transition]="'width ' + splitViewService.TRANSITION_TIME_MS + +'ms'"
+    [ngClass]="{ hidden: !isCanvasContentVisible }">
+    <ng-content></ng-content>
+  </div>
 </section>

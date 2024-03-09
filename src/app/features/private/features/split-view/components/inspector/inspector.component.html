@@ -1,6 +1,9 @@
-<section class="inspector" [ngClass]="{ hidden: !isInspectorVisible }">
-  <app-button *ngIf="isInspectorContentVisible" (click)="close()" type="button">
-    Close
-  </app-button>
-  <ng-content *ngIf="isInspectorContentVisible"></ng-content>
+<section
+  class="inspector"
+  [style.transition]="'width ' + splitViewService.TRANSITION_TIME_MS + +'ms'"
+  [ngClass]="{ hidden: !isInspectorVisible }">
+  <div class="inspector-content" *ngIf="isInspectorContentVisible">
+    <app-button (click)="close()" type="button"> Close </app-button>
+    <ng-content></ng-content>
+  </div>
 </section>

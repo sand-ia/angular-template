@@ -7,17 +7,17 @@ import { SplitViewService } from '../../split-view.service';
   styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
-  isCanvasVisible: boolean = false;
+  isCanvasContentVisible: boolean = false;
 
-  constructor(private splitViewService: SplitViewService) {}
+  constructor(public splitViewService: SplitViewService) {}
 
   ngOnInit(): void {
     this.splitViewService.activeCanvas$.subscribe(
-      () => (this.isCanvasVisible = false)
+      () => (this.isCanvasContentVisible = false)
     );
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => (this.isCanvasVisible = true), 0);
+    setTimeout(() => (this.isCanvasContentVisible = true), 0);
   }
 }

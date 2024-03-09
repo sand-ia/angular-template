@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FilterService {
-  public filterText$: Observable<string>;
+  filterText$: Observable<string>;
   private filterTextSubject: BehaviorSubject<string>;
 
   constructor() {
