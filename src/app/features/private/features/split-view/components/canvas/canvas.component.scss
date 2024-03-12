@@ -12,7 +12,8 @@
 
 .canvas-content {
   opacity: 1;
-  transition: opacity 200ms cubic-bezier(1, 0.02, 0.16, 1);
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(1, 0.02, 0.16, 1);
 }
 
 .hidden {

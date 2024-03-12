@@ -8,13 +8,16 @@ import { SplitViewService } from '../../split-view.service';
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
   isCanvasContentVisible: boolean = false;
+  private activeCanvas!: string;
 
   constructor(public splitViewService: SplitViewService) {}
 
   ngOnInit(): void {
-    this.splitViewService.activeCanvas$.subscribe(
-      () => (this.isCanvasContentVisible = false)
-    );
+    this.splitViewService.activeCanvas$.subscribe(activeCanvas => {
+      if (this.activeCanvas != activeCanvas)
+        this.isCanvasContentVisible = false;
+      this.activeCanvas = activeCanvas;
+    });
   }
 
   ngAfterViewInit(): void {

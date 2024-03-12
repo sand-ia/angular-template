@@ -2,7 +2,8 @@
   background-color: white;
   width: 100px;
   height: 100vh;
-  transition: width 200ms cubic-bezier(1, 0.02, 0.16, 1);
+  transition-property: width;
+  transition-timing-function: cubic-bezier(1, 0.02, 0.16, 1);
 }
 
 .hidden {
