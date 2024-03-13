@@ -9,7 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { ServerErrorModalComponent } from '../../shared/organisms/modals/server-error-modal/server-error-modal.component';
+import { ServerErrorModalComponent } from '../../shared/organisms/modal/server-error-modal/server-error-modal.component';
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
