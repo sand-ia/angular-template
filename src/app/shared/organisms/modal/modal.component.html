@@ -1,1 +1,5 @@
-<p>modal works!</p>
+<section *ngIf="!!modalService.getActiveModal()" class="backdrop">
+  <section class="modal">
+    <div #container></div>
+  </section>
+</section>

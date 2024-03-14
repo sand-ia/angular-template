@@ -1,22 +1,26 @@
-.modal{
-  .modal-header{
+.modal {
+  .modal-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 
     .modal-title {
-      font-size: 48px;
+      font-size: 24px;
       font-weight: 900;
     }
-    
+
     .modal-subtitle {
-      font-size: 30px;
+      font-size: 10px;
       font-weight: 500;
-    } 
+    }
   }
 
-  .modal-footer{
+  .modal-content {
+    font-size: 8px;
+  }
+
+  .modal-footer {
     display: flex;
     justify-content: center;
   }
