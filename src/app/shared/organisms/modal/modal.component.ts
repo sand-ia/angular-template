@@ -25,14 +25,15 @@ export class ModalComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.createComponent();
+    setTimeout(() => {
+      this.createComponent();
+    });
   }
 
   createComponent(): void {
     const componentFactory = this.resolver.resolveComponentFactory(
       ServerErrorModalComponent
     );
-    console.log(this.container);
     this.componentRef = this.container.createComponent(componentFactory);
   }
 
