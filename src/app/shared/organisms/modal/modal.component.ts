@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ModalService } from './modal.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { ServerErrorModalComponent } from './server-error-modal/server-error-modal.component';
 
 @Component({
   selector: 'app-modal',
@@ -7,7 +8,17 @@ import { ModalService } from './modal.service';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-  constructor(public modalService: ModalService) {
-    this.modalService.openDialog();
+  constructor(public dialog: Dialog) {
+    this.openDialog();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open<string>(ServerErrorModalComponent, {
+      width: '250px',
+    });
+
+    dialogRef.closed.subscribe(() => {
+      console.log('The dialog was closed');
+    });
   }
 }
