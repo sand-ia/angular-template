@@ -21,9 +21,8 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status >= 500 && error.status < 599) {
+        if (error.status === 0 || (error.status >= 500 && error.status < 599))
           this.openDialog();
-        }
         return throwError(() => error);
       })
     );

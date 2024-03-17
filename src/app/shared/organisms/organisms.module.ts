@@ -4,6 +4,6 @@ import { ModalModule } from './modal/modal.module';
 
 @NgModule({
   imports: [SidebarModule, ModalModule],
-  exports: [SidebarModule, ModalModule],
+  exports: [SidebarModule],
 })
 export class OrganismsModule {}
