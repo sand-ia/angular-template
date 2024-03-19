@@ -1,6 +1,3 @@
-@use '@angular/material' as mat;
-@include mat.core();
-
 $light: white;
 $dark: rgba(black, 0.87);
 
@@ -8,7 +5,7 @@ $primary-color: (
   50: #b7c7e7,
   100: #b7c7e7,
   200: #b7c7e7,
-  300: #3366CC,
+  300: #3366cc,
   400: #b7c7e7,
   500: #b7c7e7,
   600: #b7c7e7,
@@ -26,8 +23,8 @@ $primary-color: (
     700: $light,
     800: $light,
     900: $light,
-  )
-);;
+  ),
+);
 
 $accent-color: (
   50: #fff8e3,
@@ -51,7 +48,7 @@ $accent-color: (
     700: $light,
     800: $light,
     900: $light,
-  )
+  ),
 );
 
 $warn-color: (
@@ -76,53 +73,8 @@ $warn-color: (
     700: $light,
     800: $light,
     900: $light,
-  )
-);
-
-$my-primary: mat.define-palette($primary-color, 300);
-$my-accent: mat.define-palette($accent-color, 600);
-$my-warn: mat.define-palette($warn-color, 400);
-
-$my-theme: mat.define-light-theme((
-  color: (
-    primary: $my-primary,
-    accent: $my-accent,
-    warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
-  density: 0,
-));
-
-@include mat.all-component-themes($my-theme);
-
-.mat-mdc-button.mat-mdc-button-base, .mat-mdc-raised-button.mat-mdc-button-base, .mat-mdc-unelevated-button.mat-mdc-button-base, .mat-mdc-outlined-button.mat-mdc-button-base {
-  height: 48px;
-}
-
-.mat-mdc-unelevated-button.mat-primary {
-  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-primary, '300-contrast')};
- }
-
-.mat-mdc-unelevated-button.mat-accent {
-  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-accent, '600-contrast')};
-}
-
-.mat-mdc-unelevated-button.mat-warn {
-  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-warn, '400-contrast')};
-}
-
-.mat-mdc-raised-button.mat-primary {
-  --mdc-protected-button-label-text-color: #{mat.get-color-from-palette($my-primary, '300-contrast')};
-}
-
-.mat-mdc-raised-button.mat-accent {
-  --mdc-protected-button-label-text-color: #{mat.get-color-from-palette($my-accent, '600-contrast')};
-}
-
-.mat-mdc-raised-button.mat-warn {
-  --mdc-filled-button-label-text-color: #{mat.get-color-from-palette($my-warn, '400-contrast')};
-}
-
+);
 
 .light {
   background-color: $light;
