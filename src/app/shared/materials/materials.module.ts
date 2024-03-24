@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatStepperModule } from '@angular/material/stepper';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -40,7 +39,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule,
     MatSlideToggleModule,
     MatSelectModule,
     MatButtonToggleModule,
@@ -68,7 +66,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule,
     MatSlideToggleModule,
     MatSelectModule,
     MatButtonToggleModule,
